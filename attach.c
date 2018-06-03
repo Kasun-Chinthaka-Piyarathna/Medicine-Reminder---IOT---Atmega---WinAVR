@@ -57,11 +57,6 @@ int main(void)
 	DDRC = 0xFF;
 	PORTA=0xFF;
     
-
-    
-    
-    
-
 	Lcd4_Init();
 	Lcd4_Clear();
 	Lcd4_Set_Cursor(1,2);
@@ -71,8 +66,7 @@ int main(void)
 	Lcd4_Write_String("BOX");
 	_delay_ms(1000);
 	_delay_ms(1000);
-	
-	
+		
 	while(1)
 	
 	{ 
@@ -95,9 +89,7 @@ int main(void)
 	get_value();
 	itoa(*new_num,s1,10);
 	Lcd4_Clear();
-	
-	
-	
+		
 	if(*new_num==01){
 	
 	Lcd4_Set_Cursor(1,2);
@@ -115,15 +107,12 @@ int main(void)
 	
 	int m= num[1];
 	
-	
-	
 	for( i=0;i < m ; i++){
 	
 	medic_details();
 	
 	}
 
-	
 	Lcd4_Clear();
 	Lcd4_Set_Cursor(1,1);
 	Lcd4_Write_String("Alerting_System ");
@@ -165,10 +154,7 @@ int main(void)
 	Lcd4_Set_Cursor(2,5);
 	Lcd4_Write_String("BOX");
 
-
 	}
-	
-	
 	
 	while(lop < 8)
 	{
@@ -181,9 +167,7 @@ int main(void)
 	  place=2;
 	}
 	lop = 0;
-	
-	
-	
+		
  }	
 
 }
@@ -312,9 +296,7 @@ void keypad(void){
 		}
 
 		PORTB&=~(1<<PINB3);
-		
-		
-		
+			
 	}
 	while(stop==1);
 }
@@ -448,9 +430,9 @@ void medic_details(){
 			PORTC&=~(1<<PINC0);
 			sendMSG();
 			led(med);
-				
-	  
+				  
 }  
+
 void uart_init (void)
 {
 	UBRRH = (BAUDRATE>>8);                      // shift the register right by 8 bits
@@ -458,14 +440,15 @@ void uart_init (void)
 	UCSRB|= (1<<TXEN)|(1<<RXEN);                // enable receiver and transmitter
 	UCSRC|= (1<<URSEL)|(1<<UCSZ0)|(1<<UCSZ1);   // 8bit data format
 }
+
 void uart_transmit_char (unsigned char data)
 {
 	while (!( UCSRA & (1<<UDRE)));                // wait while register is free
 	UDR = data;                                   // load data in the register
 }
+
 void uart_transmit_string (const unsigned char* st)
 {
-	
 	
 		while(*st)
 		uart_transmit_char(*st++);
@@ -482,8 +465,6 @@ void uart_transmit_string (const unsigned char* st)
 
 void sendMSG(){
 
-
-
 	 Lcd4_Clear();
 	 Lcd4_Set_Cursor(1,1);
 	 Lcd4_Write_String("Sending MSG");
@@ -498,7 +479,6 @@ void sendMSG(){
 	 _delay_ms(1000);
 	 uart_transmit_string("Aleart from MEDIC BOX");
 	
-
 	 _delay_ms(1000);
 	 uart_transmit_char((char)26);
 	 _delay_ms(1000);
@@ -506,8 +486,8 @@ void sendMSG(){
 	 _delay_ms(1000);
 	 Lcd4_Clear();
 	
-
 }
+
 void led(int med){
 
 switch(med){
@@ -581,8 +561,6 @@ default:
 			_delay_ms(1000);
 			PORTA=0b01111111;
 			break;
-
-
 
 	}
 
